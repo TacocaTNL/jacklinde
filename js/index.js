@@ -1,3 +1,10 @@
+// index.js
+if('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/serviceworker.js', {
+    scope: '/'
+  });
+}
+
 // Select all links with hashes
 $('a[href*="#"]')
   // Remove links that don't actually link to anything
