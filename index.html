@@ -1,0 +1,124 @@
+<!doctype HTML>
+<html>
+
+<head>
+  <title>Jack Linde</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta name="keywords" content="Jack, Linde, Mechanical, Enigineer, Werktuigbouwkunde, Engineering, ASML">
+  <meta name="Description" content="A mechanical engineer in training!">
+
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="_css/reset.css">
+  <link rel="stylesheet" href="_css/index.css">
+
+</head>
+
+<body>
+  <div id="main">
+
+    <div class="nav">
+      <div class="navInner">
+        <div class="navInnerContainer">
+          <span class="navBtn"><a href="#about">About</a></span>
+          <span class="navBtn"><a href="#portfolio">Portfolio</a></span>
+          <span class="navImg"><a href="#main">&lt;IMG&gt;</a></span>
+          <span class="navBtn"><a href="#">Work</a></span>
+          <span class="navBtn"><a href="#">Contact</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="title">
+      <div class="titleBig">Jack Linde</div>
+      <div class="titleSmall">Mechanical Enigineer in opleiding</div>
+      <div class="titleLine"></div>
+    </div>
+
+    <section id="arrow" class="demo">
+      <a href="#about"><span></span></a>
+    </section>
+
+  </div>
+  <div id="about">
+
+    <h2 class="aboutTitle">About</h2>
+    <div class="aboutContainer">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer felis elit, aliquam non consequat vel, commodo et ipsum. Duis iaculis cursus finibus.
+      Integer placerat lacinia neque, sit amet cursus dolor. Ut sagittis mauris aliquam tortor blandit viverra.
+      Sed enim tellus, dictum vel pulvinar eget, hendrerit vel sapien.
+      Nunc sit amet urna eu tellus pharetra pellentesque at eu mi.
+      Integer sed imperdiet enim.
+      Mauris et ipsum et tortor vestibulum tincidunt.
+      Nullam ultricies sapien in sem pulvinar ultrices.
+
+      Quisque sit amet ante interdum, blandit erat ac, tincidunt sapien.
+      Proin accumsan quam lacus, nec congue eros tristique tempus.
+      Nulla eleifend ipsum a tempus pellentesque.
+      Duis venenatis purus magna, at efficitur quam tincidunt at.
+      Aenean rhoncus nulla eget posuere molestie.
+      Nulla eget interdum diam.
+      Mauris et augue non felis tempus dictum.
+      Nullam fermentum ipsum eget tellus commodo, vel tincidunt odio malesuada.
+      Phasellus fermentum malesuada metus ac congue.
+      Pellentesque dictum lectus lorem, eu tristique erat ultrices nec.
+      In hac habitasse platea dictumst.
+    </div>
+
+  </div>
+  <div id="portfolio">
+
+    <h2 class="portfolioTitle">Portfolio</h2>
+    <div class="portfolioContainer">
+
+      <div id="csgo" class="projectContainer">
+        <img src="_img/csgo.png" alt="csgo" width="350">
+        <div class="projectTitleContainer">
+          <span class="projectTitle">CS: Global Offensive</span>
+        </div>
+      </div>
+
+      <div id="homepage" class="projectContainer">
+        <img src="_img/homepage.png" alt="homepage" width="350">
+        <div class="projectTitleContainer">
+          <span class="projectTitle">Homepage</span>
+        </div>
+      </div>
+
+      <div id="mastermind" class="projectContainer">
+        <img src="_img/mastermind.png" alt="mastermind" width="350">
+        <div class="projectTitleContainer">
+          <span class="projectTitle">Mastermind</span>
+        </div>
+      </div>
+
+      <div id="pubg" class="projectContainer">
+        <img src="_img/pubg.jpg" alt="pubg" width="350">
+        <div class="projectTitleContainer">
+          <span class="projectTitle">PUBG Statistics</span>
+        </div>
+      </div>
+
+      <div id="wrdn" class="projectContainer">
+        <img src="_img/WRDN.jpg" alt="WRDN" width="350">
+        <div class="projectTitleContainer">
+          <span class="projectTitle">WRDN</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="_js/jquery-3.2.1.min.js"></script>
+  <script src="_js/index.js"></script>
+  <script>
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker
+             .register('/serviceWorker.js')
+             .then(function() { console.log("Service Worker Registered"); });
+  }
+  </script>
+
+</body>
+
+</html>
