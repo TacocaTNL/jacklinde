@@ -8,7 +8,7 @@ var URLS = [                            // Add URL you want to cache in this lis
     '/jacklinde/js/jquery-3.2.1.min.js',
     '/jacklinde/fonts/Nexa_Bold.otf',
     '/jacklinde/fonts/Nexa_Light.otf',
-    '/jacklinde/img/WRDN.webp',
+    '/jacklinde/img/wrdn.webp',
     '/jacklinde/img/csgo.webp',
     '/jacklinde/img/homepage.webp',
     '/jacklinde/img/mastermind.webp',
