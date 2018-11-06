@@ -13,8 +13,7 @@ var URLS = [                            // Add URL you want to cache in this lis
     '/jacklinde/img/homepage.png',
     '/jacklinde/img/mastermind.png',
     '/jacklinde/img/pubg.jpg',
-    '/jacklinde/index.html',
-    '/jacklinde/offline.html'           // add path to those files here
+    '/jacklinde/index.html'          // add path to those files here
 ]
 
 // Respond with cached resources
