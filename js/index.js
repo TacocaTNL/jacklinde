@@ -1,9 +1,7 @@
-// index.js
-if('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/serviceworker.js', {
-    scope: '/'
-  });
-}
+// register ServiceWorker, remember to use absolute path!
+  if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('/jacklinde/serviceworker.js', {scope: '/jacklinde/'})
+  }
 
 // Select all links with hashes
 $('a[href*="#"]')
