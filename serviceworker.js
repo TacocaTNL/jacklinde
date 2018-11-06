@@ -2,19 +2,19 @@ var APP_PREFIX = 'jacklinde_'     // Identifier for this app (this needs to be c
 var VERSION = 'version_01'              // Version of the off-line cache (change this value everytime you want to update cache)
 var CACHE_NAME = APP_PREFIX + VERSION
 var URLS = [                            // Add URL you want to cache in this list.
-    'jacklinde/css/index.css',
-    'jacklinde/css/reset.css',
-    'jacklinde/js/index.js',
-    'jacklinde/js/jquery-3.2.1.min.js',
-    'jacklinde/fonts/Nexa_Bold.otf',
-    'jacklinde/fonts/Nexa_Light.otf',
-    'jacklinde/img/WRDN.jpg',
-    'jacklinde/img/csgo.png',
-    'jacklinde/img/homepage.png',
-    'jacklinde/img/mastermind.png',
-    'jacklinde/img/pubg.jpg',
-    'jacklinde/index.html',
-    'jacklinde/offline.html'           // add path to those files here
+    '/jacklinde/css/index.css',
+    '/jacklinde/css/reset.css',
+    '/jacklinde/js/index.js',
+    '/jacklinde/js/jquery-3.2.1.min.js',
+    '/jacklinde/fonts/Nexa_Bold.otf',
+    '/jacklinde/fonts/Nexa_Light.otf',
+    '/jacklinde/img/WRDN.jpg',
+    '/jacklinde/img/csgo.png',
+    '/jacklinde/img/homepage.png',
+    '/jacklinde/img/mastermind.png',
+    '/jacklinde/img/pubg.jpg',
+    '/jacklinde/index.html',
+    '/jacklinde/offline.html'           // add path to those files here
 ]
 
 // Respond with cached resources
