@@ -1,116 +1,69 @@
-'use strict';
+var APP_PREFIX = 'ApplicationName_'     // Identifier for this app (this needs to be consistent across every cache update)
+var VERSION = 'version_01'              // Version of the off-line cache (change this value everytime you want to update cache)
+var CACHE_NAME = APP_PREFIX + VERSION
+var URLS = [                            // Add URL you want to cache in this list.
+    'jacklinde/css/index.css',
+    'jacklinde/css/reset.css',
+    'jacklinde/js/index.js',
+    'jacklinde/js/jquery-3.2.1.min.js',
+    'jacklinde/fonts/Nexa_Bold.otf',
+    'jacklinde/fonts/Nexa_Light.otf',
+    'jacklinde/img/WRDN.jpg',
+    'jacklinde/img/csgo.png',
+    'jacklinde/img/homepage.png',
+    'jacklinde/img/mastermind.png',
+    'jacklinde/img/pubg.jpg',
+    'jacklinde/index.html',
+    'jacklinde/offline.html'           // add path to those files here
+]
 
-// Licensed under a CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
-// http://creativecommons.org/publicdomain/zero/1.0/
+// Respond with cached resources
+self.addEventListener('fetch', function (e) {
+  console.log('fetch request : ' + e.request.url)
+  e.respondWith(
+    caches.match(e.request).then(function (request) {
+      if (request) { // if cache is available, respond with cache
+        console.log('responding with cache : ' + e.request.url)
+        return request
+      } else {       // if there are no cache, try fetching request
+        console.log('file is not cached, fetching : ' + e.request.url)
+        return fetch(e.request)
+      }
 
-(function() {
+      // You can omit if/else for console.log & put one line below like this too.
+      // return request || fetch(e.request)
+    })
+  )
+})
 
-    // Update 'version' if you need to refresh the cache
-    var staticCacheName = 'static';
-    var version = 'v1::';
+// Cache resources
+self.addEventListener('install', function (e) {
+  e.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) {
+      console.log('installing cache : ' + CACHE_NAME)
+      return cache.addAll(URLS)
+    })
+  )
+})
 
-    // Store core files in a cache (including a page to display when offline)
-    function updateStaticCache() {
-        return caches.open(version + staticCacheName)
-            .then(function (cache) {
-                return cache.addAll([
-                    '/css/index.css',
-                    '/css/reset.css',
-                    '/js/index.js',
-                    '/js/jquery-3.2.1.min.js',
-                    '/fonts/Nexa_Bold.otf',
-                    '/fonts/Nexa_Light.otf',
-                    '/img/WRDN.jpg',
-                    '/img/csgo.png',
-                    '/img/homepage.png',
-                    '/img/mastermind.png',
-                    '/img/pubg.jpg',
-                    '/index.html',
-                    '/offline.html'
-                ]);
-            });
-    };
+// Delete outdated caches
+self.addEventListener('activate', function (e) {
+  e.waitUntil(
+    caches.keys().then(function (keyList) {
+      // `keyList` contains all cache names under your username.github.io
+      // filter out ones that has this app prefix to create white list
+      var cacheWhitelist = keyList.filter(function (key) {
+        return key.indexOf(APP_PREFIX)
+      })
+      // add current cache name to white list
+      cacheWhitelist.push(CACHE_NAME)
 
-    self.addEventListener('install', function (event) {
-        event.waitUntil(updateStaticCache());
-    });
-
-    self.addEventListener('activate', function (event) {
-        event.waitUntil(
-            caches.keys()
-                .then(function (keys) {
-                    // Remove caches whose name is no longer valid
-                    return Promise.all(keys
-                        .filter(function (key) {
-                          return key.indexOf(version) !== 0;
-                        })
-                        .map(function (key) {
-                          return caches.delete(key);
-                        })
-                    );
-                })
-        );
-    });
-
-    self.addEventListener('fetch', function (event) {
-        var request = event.request;
-        // Always fetch non-GET requests from the network
-        if (request.method !== 'GET') {
-            event.respondWith(
-                fetch(request)
-                    .catch(function () {
-                        return caches.match('/offline.html');
-                    })
-            );
-            return;
+      return Promise.all(keyList.map(function (key, i) {
+        if (cacheWhitelist.indexOf(key) === -1) {
+          console.log('deleting cache : ' + keyList[i] )
+          return caches.delete(keyList[i])
         }
-
-        // For HTML requests, try the network first, fall back to the cache, finally the offline page
-        if (request.headers.get('Accept').indexOf('text/html') !== -1) {
-            // Fix for Chrome bug: https://code.google.com/p/chromium/issues/detail?id=573937
-            if (request.mode != 'navigate') {
-                request = new Request(request.url, {
-                    method: 'GET',
-                    headers: request.headers,
-                    mode: request.mode,
-                    credentials: request.credentials,
-                    redirect: request.redirect
-                });
-            }
-            event.respondWith(
-                fetch(request)
-                    .then(function (response) {
-                        // Stash a copy of this page in the cache
-                        var copy = response.clone();
-                        caches.open(version + staticCacheName)
-                            .then(function (cache) {
-                                cache.put(request, copy);
-                            });
-                        return response;
-                    })
-                    .catch(function () {
-                        return caches.match(request)
-                            .then(function (response) {
-                                return response || caches.match('/offline.html');
-                            })
-                    })
-            );
-            return;
-        }
-
-        // For non-HTML requests, look in the cache first, fall back to the network
-        event.respondWith(
-            caches.match(request)
-                .then(function (response) {
-                    return response || fetch(request)
-                        .catch(function () {
-                            // If the request is for an image, show an offline placeholder
-                            if (request.headers.get('Accept').indexOf('image') !== -1) {
-                                return new Response('<svg width="400" height="300" role="img" aria-labelledby="offline-title" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><title id="offline-title">Offline</title><g fill="none" fill-rule="evenodd"><path fill="#D8D8D8" d="M0 0h400v300H0z"/><text fill="#9B9B9B" font-family="Helvetica Neue,Arial,Helvetica,sans-serif" font-size="72" font-weight="bold"><tspan x="93" y="172">offline</tspan></text></g></svg>', { headers: { 'Content-Type': 'image/svg+xml' }});
-                            }
-                        });
-                })
-        );
-    });
-
-})();
+      }))
+    })
+  )
+})
